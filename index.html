@@ -9,325 +9,13 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
 
-    <style>
-        /* --- VARIÁVEIS E GERAL --- */
-        :root {
-            --bg-dark: #050505;
-            --bg-card: #121212;
-            --text-main: #f0f0f0; /* Texto principal mais claro */
-            --text-muted-custom: #b0b0b0; /* Cinza mais claro para leitura */
-            --gradient-main: linear-gradient(135deg, #00c6ff, #9933ff, #00f260);
-            --accent-green: #00f260;
-            --accent-purple: #9933ff;
-            --accent-blue: #00c6ff;
-        }
-
-        body {
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            font-family: 'Montserrat', sans-serif;
-            overflow-x: hidden;
-        }
-
-        h1, h2, h3, h4 {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-            color: #ffffff; /* Títulos sempre brancos */
-        }
-
-        .font-serif {
-            font-family: 'Playfair Display', serif;
-        }
-
-        a { text-decoration: none; }
-
-        /* --- CORREÇÃO DE LEGIBILIDADE (Bootstrap Override) --- */
-        /* Sobrescreve o 'text-muted' padrão que estava muito escuro */
-        .text-muted {
-            color: var(--text-muted-custom) !important;
-        }
-
-        /* --- UTILITÁRIOS VISUAIS --- */
-        .text-gradient {
-            background: var(--gradient-main);
-            -webkit-background-clip: text; 
-            -webkit-text-fill-color: transparent;
-            font-weight: 800;
-            /* Adiciona um leve brilho para garantir contraste */
-            text-shadow: 0 0 20px rgba(0, 198, 255, 0.3);
-        }
-
-        .bg-gradient-custom {
-            background: var(--gradient-main);
-        }
-
-        .section-padding {
-            padding: 100px 0;
-        }
-
-        /* --- BOTÕES --- */
-        .btn-humana {
-            background: var(--gradient-main);
-            border: none;
-            color: white;
-            padding: 15px 35px;
-            border-radius: 50px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: transform 0.3s, box-shadow 0.3s;
-            box-shadow: 0 4px 15px rgba(153, 51, 255, 0.3); /* Sombra para destaque */
-        }
-
-        .btn-humana:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(153, 51, 255, 0.6);
-            color: white;
-        }
-
-        /* --- NAVBAR --- */
-        .navbar {
-            background-color: rgba(5, 5, 5, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            padding: 20px 0;
-        }
-
-        .navbar-brand {
-            font-weight: 800;
-            font-size: 1.5rem;
-            color: white !important;
-        }
-
-        .nav-link {
-            color: #e0e0e0 !important;
-            font-weight: 500;
-            margin-left: 20px;
-            transition: color 0.3s;
-        }
-
-        .nav-link:hover {
-            color: var(--accent-green) !important;
-        }
-
-        /* --- HERO SECTION --- */
-        .hero-section {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            background: radial-gradient(circle at center, #1a1a1a 0%, #000000 100%);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-bg-accent {
-            position: absolute;
-            width: 600px;
-            height: 600px;
-            background: var(--gradient-main);
-            filter: blur(150px);
-            opacity: 0.15;
-            border-radius: 50%;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 0;
-        }
-
-        .hero-content {
-            z-index: 1;
-            position: relative;
-        }
-
-        .typing-text {
-            color: #00e0ff; /* Azul mais claro e elétrico para contraste */
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            font-size: 1.8rem;
-            min-height: 50px;
-            display: block;
-            margin-bottom: 20px;
-            text-shadow: 0 0 10px rgba(0, 224, 255, 0.5); /* Glow para leitura */
-        }
-
-        /* --- CARDS & SERVICES --- */
-        .service-card {
-            background: var(--bg-card);
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 40px;
-            border-radius: 15px;
-            height: 100%;
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-            background: var(--gradient-main);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .service-card:hover {
-            transform: translateY(-10px);
-            border-color: rgba(255,255,255,0.3);
-            background: #1a1a1a;
-        }
-
-        .service-card:hover::before {
-            opacity: 1;
-        }
-
-        .service-icon {
-            font-size: 2.5rem;
-            margin-bottom: 25px;
-            background: var(--gradient-main);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .service-list {
-            list-style: none;
-            padding: 0;
-            margin-top: 20px;
-        }
-
-        .service-list li {
-            margin-bottom: 10px;
-            font-size: 0.95rem; /* Texto levemente maior */
-            color: #cccccc; /* Mais claro */
-            display: flex;
-            align-items: center;
-        }
-        
-        .service-list li i {
-            margin-right: 10px;
-            color: var(--accent-green);
-            font-size: 0.7rem;
-        }
-
-        /* --- DIFFERENTIALS --- */
-        .check-grid-item {
-            background: rgba(255,255,255,0.05);
-            padding: 15px 20px;
-            margin-bottom: 15px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            font-weight: 600;
-            color: #fff;
-            border: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .check-grid-item i {
-            color: var(--accent-green);
-            margin-right: 15px;
-            font-size: 1.2rem;
-        }
-
-        .impact-phrase {
-            border-left: 5px solid var(--accent-purple);
-            padding-left: 30px;
-            font-size: 1.5rem;
-            font-style: italic;
-            color: white;
-            margin: 40px 0;
-        }
-
-        /* --- TEAM --- */
-        .team-img-wrapper {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            overflow: hidden;
-            margin: 0 auto 20px;
-            border: 3px solid transparent;
-            background: linear-gradient(#121212, #121212) padding-box, var(--gradient-main) border-box;
-        }
-        
-        .team-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: grayscale(100%); 
-            transition: 0.3s;
-        }
-
-        .team-card:hover .team-img {
-            filter: grayscale(0%);
-        }
-
-        .team-card p.text-secondary {
-            color: #b0b0b0 !important; /* Corrige descrição do time */
-        }
-
-        /* --- RESULTS --- */
-        .result-card {
-            background: rgba(255,255,255,0.08);
-            padding: 20px;
-            text-align: center;
-            border-radius: 10px;
-            font-weight: 600;
-            color: #fff;
-            transition: 0.3s;
-            border: 1px solid rgba(255,255,255,0.05);
-        }
-        .result-card:hover {
-            background: rgba(255,255,255,0.15);
-            transform: scale(1.05);
-            border-color: rgba(255,255,255,0.3);
-        }
-
-        /* --- FLOATING WHATSAPP --- */
-        .floating-whatsapp {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background-color: #25D366;
-            color: white;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 30px;
-            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
-            z-index: 9999;
-            transition: all 0.3s;
-        }
-
-        .floating-whatsapp:hover {
-            transform: scale(1.1);
-            color: white;
-            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
-        }
-
-        /* --- ANIMATIONS (Fade In) --- */
-        .fade-in-section {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-            will-change: opacity, visibility;
-        }
-        .fade-in-section.is-visible {
-            opacity: 1;
-            transform: none;
-        }
-    </style>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="#"><span class="text-gradient">+HUMANA</span></a>
+            <a class="navbar-brand" href="#"><span class="text-gradient">HUMANA</span></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
             </button>
@@ -357,11 +45,11 @@
                     </div>
 
                     <p class="lead text-light mb-5 fs-4" style="opacity: 0.9;">
-                        Estratégia corporativa para pessoas, processos e marketing — com profundidade humana.
+                        Estratégia corporativa para pessoas, processos e marketing com profundidade humana.
                     </p>
                     
                     <a href="https://wa.me/seunumeroaqui" class="btn-humana btn-lg">
-                        Quero minha empresa +Humana <i class="fas fa-arrow-right ms-2"></i>
+                        Quero minha empresa Humana <i class="fas fa-arrow-right ms-2"></i>
                     </a>
                 </div>
             </div>
@@ -569,13 +257,13 @@
 
     <footer class="py-4 border-top border-secondary bg-black text-center">
         <div class="container">
-            <h5 class="text-white mb-2">+HUMANA</h5>
+            <h5 class="text-white mb-2">HUMANA</h5>
             <p class="small mb-3 text-secondary">Estratégia Corporativa | Pessoas • Processos • Marketing</p>
             <div class="mb-3">
                 <a href="#" class="text-secondary mx-2"><i class="fab fa-instagram fa-lg"></i></a>
                 <a href="#" class="text-secondary mx-2"><i class="fab fa-linkedin fa-lg"></i></a>
             </div>
-            <p class="small text-secondary">&copy; 2025 +HUMANA. Todos os direitos reservados.</p>
+            <p class="small text-secondary">&copy; 2025 HUMANA. Todos os direitos reservados.</p>
         </div>
     </footer>
 
@@ -584,79 +272,6 @@
     </a>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // --- 1. Efeito de Digitação (Typewriter) ---
-        const typingTextElement = document.getElementById('typing-text');
-        const phrases = [
-            "Como seria se sua equipe tivesse direção?",
-            "Se seus processos fossem claros?",
-            "Se sua essência fosse vista no digital?",
-            "Se o clima interno refletisse a cultura?"
-        ];
-        
-        let phraseIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
-        let typeSpeed = 50;
-
-        function typeWriter() {
-            const currentPhrase = phrases[phraseIndex];
-            
-            if (isDeleting) {
-                typingTextElement.textContent = currentPhrase.substring(0, charIndex - 1);
-                charIndex--;
-                typeSpeed = 30; // Mais rápido para apagar
-            } else {
-                typingTextElement.textContent = currentPhrase.substring(0, charIndex + 1);
-                charIndex++;
-                typeSpeed = 60; // Normal para escrever
-            }
-
-            if (!isDeleting && charIndex === currentPhrase.length) {
-                isDeleting = true;
-                typeSpeed = 2000; // Espera antes de apagar
-            } else if (isDeleting && charIndex === 0) {
-                isDeleting = false;
-                phraseIndex = (phraseIndex + 1) % phrases.length;
-                typeSpeed = 500; // Espera antes de começar a próxima
-            }
-
-            setTimeout(typeWriter, typeSpeed);
-        }
-
-        document.addEventListener('DOMContentLoaded', typeWriter);
-
-        // --- 2. Animação de Fade-In ao rolar ---
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.1
-        };
-
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.fade-in-section').forEach(section => {
-            observer.observe(section);
-        });
-
-        // --- 3. Navbar muda de cor ao rolar ---
-        window.addEventListener('scroll', function() {
-            const navbar = document.querySelector('.navbar');
-            if (window.scrollY > 50) {
-                navbar.style.backgroundColor = "rgba(0, 0, 0, 0.98)";
-                navbar.style.boxShadow = "0 2px 10px rgba(0,0,0,0.5)";
-            } else {
-                navbar.style.backgroundColor = "rgba(5, 5, 5, 0.9)";
-                navbar.style.boxShadow = "none";
-            }
-        });
-    </script>
+    <script src="js/script.js"></script>
 </body>
 </html>
