@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>+HUMANA | Estratégia Corporativa</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- VARIÁVEIS E GERAL --- */
+        :root {
+            --bg-dark: #050505;
+            --bg-card: #121212;
+            --text-main: #f0f0f0; /* Texto principal mais claro */
+            --text-muted-custom: #b0b0b0; /* Cinza mais claro para leitura */
+            --gradient-main: linear-gradient(135deg, #00c6ff, #9933ff, #00f260);
+            --accent-green: #00f260;
+            --accent-purple: #9933ff;
+            --accent-blue: #00c6ff;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: #ffffff; /* Títulos sempre brancos */
+        }
+
+        .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+
+        a { text-decoration: none; }
+
+        /* --- CORREÇÃO DE LEGIBILIDADE (Bootstrap Override) --- */
+        /* Sobrescreve o 'text-muted' padrão que estava muito escuro */
+        .text-muted {
+            color: var(--text-muted-custom) !important;
+        }
+
+        /* --- UTILITÁRIOS VISUAIS --- */
+        .text-gradient {
+            background: var(--gradient-main);
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+            /* Adiciona um leve brilho para garantir contraste */
+            text-shadow: 0 0 20px rgba(0, 198, 255, 0.3);
+        }
+
+        .bg-gradient-custom {
+            background: var(--gradient-main);
+        }
+
+        .section-padding {
+            padding: 100px 0;
+        }
+
+        /* --- BOTÕES --- */
+        .btn-humana {
+            background: var(--gradient-main);
+            border: none;
+            color: white;
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 15px rgba(153, 51, 255, 0.3); /* Sombra para destaque */
+        }
+
+        .btn-humana:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(153, 51, 255, 0.6);
+            color: white;
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            background-color: rgba(5, 5, 5, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding: 20px 0;
+        }
+
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: white !important;
+        }
+
+        .nav-link {
+            color: #e0e0e0 !important;
+            font-weight: 500;
+            margin-left: 20px;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-green) !important;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero-section {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            background: radial-gradient(circle at center, #1a1a1a 0%, #000000 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg-accent {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: var(--gradient-main);
+            filter: blur(150px);
+            opacity: 0.15;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+        }
+
+        .hero-content {
+            z-index: 1;
+            position: relative;
+        }
+
+        .typing-text {
+            color: #00e0ff; /* Azul mais claro e elétrico para contraste */
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.8rem;
+            min-height: 50px;
+            display: block;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(0, 224, 255, 0.5); /* Glow para leitura */
+        }
+
+        /* --- CARDS & SERVICES --- */
+        .service-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 40px;
+            border-radius: 15px;
+            height: 100%;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--gradient-main);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(255,255,255,0.3);
+            background: #1a1a1a;
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+            margin-bottom: 25px;
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .service-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+
+        .service-list li {
+            margin-bottom: 10px;
+            font-size: 0.95rem; /* Texto levemente maior */
+            color: #cccccc; /* Mais claro */
+            display: flex;
+            align-items: center;
+        }
+        
+        .service-list li i {
+            margin-right: 10px;
+            color: var(--accent-green);
+            font-size: 0.7rem;
+        }
+
+        /* --- DIFFERENTIALS --- */
+        .check-grid-item {
+            background: rgba(255,255,255,0.05);
+            padding: 15px 20px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .check-grid-item i {
+            color: var(--accent-green);
+            margin-right: 15px;
+            font-size: 1.2rem;
+        }
+
+        .impact-phrase {
+            border-left: 5px solid var(--accent-purple);
+            padding-left: 30px;
+            font-size: 1.5rem;
+            font-style: italic;
+            color: white;
+            margin: 40px 0;
+        }
+
+        /* --- TEAM --- */
+        .team-img-wrapper {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 20px;
+            border: 3px solid transparent;
+            background: linear-gradient(#121212, #121212) padding-box, var(--gradient-main) border-box;
+        }
+        
+        .team-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%); 
+            transition: 0.3s;
+        }
+
+        .team-card:hover .team-img {
+            filter: grayscale(0%);
+        }
+
+        .team-card p.text-secondary {
+            color: #b0b0b0 !important; /* Corrige descrição do time */
+        }
+
+        /* --- RESULTS --- */
+        .result-card {
+            background: rgba(255,255,255,0.08);
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px;
+            font-weight: 600;
+            color: #fff;
+            transition: 0.3s;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .result-card:hover {
+            background: rgba(255,255,255,0.15);
+            transform: scale(1.05);
+            border-color: rgba(255,255,255,0.3);
+        }
+
+        /* --- FLOATING WHATSAPP --- */
+        .floating-whatsapp {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25D366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+            z-index: 9999;
+            transition: all 0.3s;
+        }
+
+        .floating-whatsapp:hover {
+            transform: scale(1.1);
+            color: white;
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
+        }
+
+        /* --- ANIMATIONS (Fade In) --- */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            will-change: opacity, visibility;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: none;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#"><span class="text-gradient">+HUMANA</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="#home">Início</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#o-que-fazemos">O que fazemos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#diferencial">Diferencial</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#quem-somos">Quem somos</a></li>
+                    <li class="nav-item ms-lg-3">
+                        <a class="btn btn-outline-light rounded-pill px-4" href="https://wa.me/seunumeroaqui">Fale Conosco</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="hero-section">
+        <div class="hero-bg-accent"></div>
+        <div class="container hero-content text-center">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <h1 class="display-3 mb-4 fw-bold">Como seria se você soubesse o <span class="text-gradient">melhor caminho?</span></h1>
+                    
+                    <div style="min-height: 80px;">
+                        <span id="typing-text" class="typing-text"></span>
+                    </div>
+
+                    <p class="lead text-light mb-5 fs-4" style="opacity: 0.9;">
+                        Estratégia corporativa para pessoas, processos e marketing — com profundidade humana.
+                    </p>
+                    
+                    <a href="https://wa.me/seunumeroaqui" class="btn-humana btn-lg">
+                        Quero minha empresa +Humana <i class="fas fa-arrow-right ms-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="o-que-fazemos" class="section-padding">
+        <div class="container">
+            <div class="row mb-5 text-center">
+                <div class="col-12">
+                    <h6 class="text-uppercase text-gradient mb-2">Nossas Soluções</h6>
+                    <h2 class="display-5">Soluções integradas para empresas que querem <span class="font-serif fst-italic">prosperar com humanidade</span></h2>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3 fade-in-section">
+                    <div class="service-card">
+                        <i class="fas fa-microscope service-icon"></i>
+                        <h4>Diagnóstico Profundo</h4>
+                        <p class="small text-white-50">Pessoas, Cultura e Processos</p>
+                        <ul class="service-list">
+                            <li><i class="fas fa-check"></i> Mapeamento comportamental</li>
+                            <li><i class="fas fa-check"></i> Entrevistas e escuta ativa</li>
+                            <li><i class="fas fa-check"></i> Leitura emocional e corporal</li>
+                            <li><i class="fas fa-check"></i> Análise sistêmica</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3 fade-in-section">
+                    <div class="service-card">
+                        <i class="fas fa-users-cog service-icon"></i>
+                        <h4>T&D Humanizado</h4>
+                        <p class="small text-white-50">Atendimento à NR1 com cuidado</p>
+                        <ul class="service-list">
+                            <li><i class="fas fa-check"></i> Especialistas em RH e PNL</li>
+                            <li><i class="fas fa-check"></i> Treinamentos lúdicos</li>
+                            <li><i class="fas fa-check"></i> Dinâmicas de alta performance</li>
+                            <li><i class="fas fa-check"></i> Programas contínuos</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3 fade-in-section">
+                    <div class="service-card">
+                        <i class="fas fa-project-diagram service-icon"></i>
+                        <h4>Processos & Cultura</h4>
+                        <p class="small text-white-50">Estratégia Viva</p>
+                        <ul class="service-list">
+                            <li><i class="fas fa-check"></i> Redesenho de processos</li>
+                            <li><i class="fas fa-check"></i> Jornada do colaborador</li>
+                            <li><i class="fas fa-check"></i> Recomendações estruturais</li>
+                            <li><i class="fas fa-check"></i> Programas para líderes</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3 fade-in-section">
+                    <div class="service-card">
+                        <i class="fas fa-bullhorn service-icon"></i>
+                        <h4>Marketing Humanizado</h4>
+                        <p class="small text-white-50">Empresarial e Pessoal</p>
+                        <ul class="service-list">
+                            <li><i class="fas fa-check"></i> Storytelling da marca</li>
+                            <li><i class="fas fa-check"></i> Estratégias autênticas</li>
+                            <li><i class="fas fa-check"></i> Employer branding</li>
+                            <li><i class="fas fa-check"></i> Gestão de redes sociais</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="lideranca" class="section-padding bg-black">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-5 mb-lg-0 fade-in-section">
+                    <h2 class="mb-4">Marketing Pessoal e <span class="text-gradient">Autoridade para Líderes</span></h2>
+                    
+                    <p class="text-muted mb-4 fs-5" style="color: #cccccc !important;">
+                        Líderes que inspiram comunicam com clareza e propósito. Ajudamos a construir um posicionamento estratégico para gestores e empreendedores.
+                    </p>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <h5 class="fw-bold text-white"><i class="fas fa-comments me-2 text-primary"></i> Comunicação com PNL</h5>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <h5 class="fw-bold text-white"><i class="fas fa-fingerprint me-2 text-primary"></i> Presença Digital</h5>
+                        </div>
+                    </div>
+                    <a href="#" class="btn btn-outline-light rounded-pill mt-3">Quero fortalecer minha liderança</a>
+                </div>
+                <div class="col-lg-6 text-center fade-in-section">
+                    <div style="background: linear-gradient(45deg, #111, #222); width: 100%; height: 300px; border-radius: 20px; display: flex; align-items: center; justify-content: center; border: 1px solid #333;">
+                        <span class="text-muted"><i class="fas fa-chess-king fa-3x"></i><br>Imagem Líder Estratégico</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="diferencial" class="section-padding" style="background-color: #080808;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 fade-in-section">
+                    <h2 class="mb-4">Nosso Maior <br><span class="text-gradient">Diferencial</span></h2>
+                    <div class="impact-phrase">
+                        "Transformamos o que acontece dentro da empresa em força fora dela — e o que é estratégico fora em cultura forte dentro."
+                    </div>
+                </div>
+                <div class="col-lg-6 offset-lg-1 fade-in-section">
+                    <div class="row">
+                        <div class="col-md-6"><div class="check-grid-item"><i class="fas fa-check-circle"></i> Profundidade Humana</div></div>
+                        <div class="col-md-6"><div class="check-grid-item"><i class="fas fa-check-circle"></i> Competência Técnica</div></div>
+                        <div class="col-md-6"><div class="check-grid-item"><i class="fas fa-check-circle"></i> Visão de Processos</div></div>
+                        <div class="col-md-6"><div class="check-grid-item"><i class="fas fa-check-circle"></i> Marketing Estratégico</div></div>
+                        <div class="col-md-6"><div class="check-grid-item"><i class="fas fa-check-circle"></i> Psicanálise</div></div>
+                        <div class="col-md-6"><div class="check-grid-item"><i class="fas fa-check-circle"></i> PNL</div></div>
+                        <div class="col-md-6"><div class="check-grid-item"><i class="fas fa-check-circle"></i> Leitura Comportamental</div></div>
+                        <div class="col-md-6"><div class="check-grid-item"><i class="fas fa-check-circle"></i> Desenvolvimento</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding">
+        <div class="container">
+            <div class="row justify-content-center text-center fade-in-section">
+                <div class="col-lg-8">
+                    <h3 class="mb-5 font-serif fst-italic">Cuidamos do Recurso Humano da sua empresa — por inteiro.</h3>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-5 fade-in-section">
+                    <p class="lead border-start border-3 border-success ps-3 text-light">Da mente ao comportamento.<br>Do processo ao desempenho.</p>
+                </div>
+                <div class="col-lg-5 fade-in-section">
+                    <p class="lead border-start border-3 border-info ps-3 text-light">Da essência à comunicação.<br>Do interno ao digital.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding bg-black">
+        <div class="container text-center">
+            <h2 class="mb-5">Resultados Tangíveis</h2>
+            <div class="row g-3 justify-content-center">
+                <div class="col-6 col-md-3 fade-in-section"><div class="result-card">Pessoas Engajadas</div></div>
+                <div class="col-6 col-md-3 fade-in-section"><div class="result-card">Processos Claros</div></div>
+                <div class="col-6 col-md-3 fade-in-section"><div class="result-card">Comunicação Coerente</div></div>
+                <div class="col-6 col-md-3 fade-in-section"><div class="result-card">Cultura Forte</div></div>
+                <div class="col-6 col-md-3 fade-in-section"><div class="result-card">Ambiente Saudável</div></div>
+                <div class="col-6 col-md-3 fade-in-section"><div class="result-card">Líderes Confiantes</div></div>
+                <div class="col-6 col-md-3 fade-in-section"><div class="result-card">Presença Digital</div></div>
+            </div>
+            <h4 class="mt-5 text-gradient">Seu negócio prospera. Você respira.</h4>
+        </div>
+    </section>
+
+    <section id="quem-somos" class="section-padding">
+        <div class="container">
+            <div class="text-center mb-5 fade-in-section">
+                <h2>Quem está por trás da <span class="text-gradient">HUMANA</span></h2>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-4 text-center mb-5 fade-in-section team-card">
+                    <div class="team-img-wrapper">
+                        <img src="https://via.placeholder.com/150/333/fff?text=VZ" alt="Vanessa Zanchi" class="team-img">
+                    </div>
+                    <h4>Vanessa Zanchi</h4>
+                    <p class="small text-muted text-uppercase mb-3">Direito | Gestão de RH | Psicanálise</p>
+                    <p class="px-4 text-secondary">20+ anos de experiência em T&D, RH, processos e cultura. Visão profunda das relações humanas e do chão corporativo.</p>
+                </div>
+
+                <div class="col-lg-4 text-center mb-5 fade-in-section team-card">
+                    <div class="team-img-wrapper">
+                        <img src="https://via.placeholder.com/150/333/fff?text=CP" alt="Carol Pessoa" class="team-img">
+                    </div>
+                    <h4>Carol Pessoa</h4>
+                    <p class="small text-muted text-uppercase mb-3">Marketing Empresarial e Pessoal</p>
+                    <p class="px-4 text-secondary">Transforma essência interna em comunicação poderosa. Conexão entre pessoas, propósito e mercado.</p>
+                </div>
+            </div>
+            <div class="row justify-content-center text-center mt-4">
+                <div class="col-lg-8 fade-in-section">
+                    <p class="lead font-serif text-light">Da união dessas expertises nasce a HUMANA — o recurso que faltava para impulsionar empresas que desejam crescer com verdade, estratégia e humanidade.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5 text-center bg-gradient-custom text-white">
+        <div class="container">
+            <h2 class="display-5 fw-bold mb-3">Quer uma empresa +HUMANA?</h2>
+            <p class="lead mb-4">Vamos conversar e diagnosticar seu cenário.</p>
+            <a href="https://wa.me/seunumeroaqui" class="btn btn-light btn-lg rounded-pill fw-bold text-dark shadow">
+                <i class="fab fa-whatsapp me-2"></i> Fale com a gente no WhatsApp
+            </a>
+        </div>
+    </section>
+
+    <footer class="py-4 border-top border-secondary bg-black text-center">
+        <div class="container">
+            <h5 class="text-white mb-2">+HUMANA</h5>
+            <p class="small mb-3 text-secondary">Estratégia Corporativa | Pessoas • Processos • Marketing</p>
+            <div class="mb-3">
+                <a href="#" class="text-secondary mx-2"><i class="fab fa-instagram fa-lg"></i></a>
+                <a href="#" class="text-secondary mx-2"><i class="fab fa-linkedin fa-lg"></i></a>
+            </div>
+            <p class="small text-secondary">&copy; 2025 +HUMANA. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/seunumeroaqui" class="floating-whatsapp" target="_blank" title="Fale no WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // --- 1. Efeito de Digitação (Typewriter) ---
+        const typingTextElement = document.getElementById('typing-text');
+        const phrases = [
+            "Como seria se sua equipe tivesse direção?",
+            "Se seus processos fossem claros?",
+            "Se sua essência fosse vista no digital?",
+            "Se o clima interno refletisse a cultura?"
+        ];
+        
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let typeSpeed = 50;
+
+        function typeWriter() {
+            const currentPhrase = phrases[phraseIndex];
+            
+            if (isDeleting) {
+                typingTextElement.textContent = currentPhrase.substring(0, charIndex - 1);
+                charIndex--;
+                typeSpeed = 30; // Mais rápido para apagar
+            } else {
+                typingTextElement.textContent = currentPhrase.substring(0, charIndex + 1);
+                charIndex++;
+                typeSpeed = 60; // Normal para escrever
+            }
+
+            if (!isDeleting && charIndex === currentPhrase.length) {
+                isDeleting = true;
+                typeSpeed = 2000; // Espera antes de apagar
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+                typeSpeed = 500; // Espera antes de começar a próxima
+            }
+
+            setTimeout(typeWriter, typeSpeed);
+        }
+
+        document.addEventListener('DOMContentLoaded', typeWriter);
+
+        // --- 2. Animação de Fade-In ao rolar ---
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in-section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // --- 3. Navbar muda de cor ao rolar ---
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.backgroundColor = "rgba(0, 0, 0, 0.98)";
+                navbar.style.boxShadow = "0 2px 10px rgba(0,0,0,0.5)";
+            } else {
+                navbar.style.backgroundColor = "rgba(5, 5, 5, 0.9)";
+                navbar.style.boxShadow = "none";
+            }
+        });
+    </script>
+</body>
+</html>
