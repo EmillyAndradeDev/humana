@@ -307,9 +307,6 @@ a {
     transform: none;
 }
 
-footer p, footer a, footer div {
-    color: #b0b0b0 !important; 
-}
 footer h5 {
     color: #ffffff !important; 
 }
@@ -379,4 +376,31 @@ footer h5 {
         width: 300px;
         height: 300px; 
     }
+}
+
+
+.footer-divider {
+    height: 1px;
+    width: 50%;
+    background-color: rgba(255, 255, 255, 0.13);
+    margin: 15px auto;
+}
+
+.dev {
+    font-size: 0.75rem;
+    color: #666;
+    margin-bottom: 0;
+    letter-spacing: 0.5px;
+}
+
+.dev a {
+    color: var(--text-muted-custom);
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.dev a:hover {
+    color: var(--accent-cyan);
+    text-shadow: 0 0 8px rgba(0, 198, 255, 0.6);
 }
